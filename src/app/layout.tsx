@@ -4,6 +4,7 @@ import "./globals.css";
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuLink, NavigationMenuTrigger, NavigationMenuContent } from "@/components/ui/navigation-menu";
 import { navigationItems } from "@/config/navigation";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,50 +32,47 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <nav className="w-full flex justify-center py-4">
-          <NavigationMenu>
+          <NavigationMenu viewport={false}>
             <NavigationMenuList>
-              {navigationItems.map((item) => (
-                <NavigationMenuItem key={item.label}>
-                  {item.children ? (
-                    <>
-                      <NavigationMenuTrigger>{item.label}</NavigationMenuTrigger>
-                      <NavigationMenuContent>
-                        <ul className="grid gap-3 p-4 w-64">
-                          {item.children.map((subitem) => (
-                            <li key={subitem.href}>
-                              <NavigationMenuLink asChild>
-                                <Link
-                                  href={subitem.href}
-                                  {...(subitem.linkProps ? Object.fromEntries(Object.entries(subitem.linkProps).filter(([k]) => k !== "prefetch")) : {})}
-                                  prefetch={subitem.linkProps?.prefetch === true}
-                                  className="block rounded-md p-2 transition-colors hover:bg-accent"
-                                >
-                                  <div className="font-medium">{subitem.label}</div>
-                                  <p className="text-xs text-muted-foreground leading-tight">{subitem.description}</p>
-                                </Link>
-                              </NavigationMenuLink>
-                            </li>
-                          ))}
-                        </ul>
-                      </NavigationMenuContent>
-                    </>
-                  ) : (
-                    <NavigationMenuLink asChild>
-                      <Link
-                        href={item.href!}
-                        {...(item.linkProps ? Object.fromEntries(Object.entries(item.linkProps).filter(([k]) => k !== "prefetch")) : {})}
-                        prefetch={item.linkProps?.prefetch === true}
-                        className="px-4 py-2"
-                      >
-                        {item.label}
-                      </Link>
-                    </NavigationMenuLink>
-                  )}
-                </NavigationMenuItem>
-              ))}
+              {
+                navigationItems.map((item) => {
+                  return (
+                    item.children ? (
+                      <NavigationMenuItem key={item.label}>
+                        <NavigationMenuTrigger>{item.label}</NavigationMenuTrigger>
+                        <NavigationMenuContent>
+                          <ul className={cn({
+                            "grid w-[300px] gap-4": item.children.length <= 5,
+                            "grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]": item.children.length > 5,
+                            })}>
+                              {
+                                item.children.map((subitem) => (
+                                  <li key={subitem.href}>
+                                    <NavigationMenuLink asChild >
+                                      <Link href={subitem.href}>
+                                        <div className="font-medium">{subitem.label}</div>
+                                        <div className="text-muted-foreground">
+                                          {subitem.description}
+                                        </div>
+                                      </Link>
+                                    </NavigationMenuLink>
+                                  </li>
+                                ))
+                              }
+                          </ul>
+                        </NavigationMenuContent>
+                      </NavigationMenuItem>
+                    ) : (
+                      <NavigationMenuLink asChild>
+                        <Link href={item.href!}>{item.label}</Link>
+                      </NavigationMenuLink>
+                    )
+                  )
+                })
+              }
             </NavigationMenuList>
           </NavigationMenu>
-        </nav>
+          </nav>
         {children}
       </body>
     </html>
