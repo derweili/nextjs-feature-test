@@ -1,4 +1,5 @@
 import type { LinkProps } from "next/link";
+import { Home, Info, BookOpen, Layers, type LucideIcon } from "lucide-react";
 
 export type NavigationSubItem = {
   label: string;
@@ -10,16 +11,18 @@ export type NavigationSubItem = {
 export type NavigationItem = {
   label: string;
   href?: string;
+  icon?: LucideIcon;
   children?: NavigationSubItem[];
   linkProps?: Partial<LinkProps>;
 };
 
 export const navigationItems: NavigationItem[] = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Blog", href: "/blog" },
+  { label: "Home", href: "/", icon: Home },
+  { label: "About", href: "/about", icon: Info },
+  { label: "Blog", href: "/blog", icon: BookOpen },
   {
     label: "Components",
+    icon: Layers,
     children: [
       {
         label: "Navigation Menu",

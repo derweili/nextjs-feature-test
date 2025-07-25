@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuLink, NavigationMenuTrigger, NavigationMenuContent } from "@/components/ui/navigation-menu";
-import { navigationItems } from "@/config/navigation";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,52 +26,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <nav className="w-full flex justify-center py-4">
-          <NavigationMenu viewport={false}>
-            <NavigationMenuList>
-              {
-                navigationItems.map((item) => {
-                  return (
-                    item.children ? (
-                      <NavigationMenuItem key={item.label}>
-                        <NavigationMenuTrigger>{item.label}</NavigationMenuTrigger>
-                        <NavigationMenuContent>
-                          <ul className={cn({
-                            "grid w-[300px] gap-4": item.children.length <= 5,
-                            "grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]": item.children.length > 5,
-                            })}>
-                              {
-                                item.children.map((subitem) => (
-                                  <li key={subitem.href}>
-                                    <NavigationMenuLink asChild >
-                                      <Link href={subitem.href}>
-                                        <div className="font-medium">{subitem.label}</div>
-                                        <div className="text-muted-foreground">
-                                          {subitem.description}
-                                        </div>
-                                      </Link>
-                                    </NavigationMenuLink>
-                                  </li>
-                                ))
-                              }
-                          </ul>
-                        </NavigationMenuContent>
-                      </NavigationMenuItem>
-                    ) : (
-                      <NavigationMenuLink asChild>
-                        <Link href={item.href!}>{item.label}</Link>
-                      </NavigationMenuLink>
-                    )
-                  )
-                })
-              }
-            </NavigationMenuList>
-          </NavigationMenu>
-          </nav>
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <SidebarProvider>
+          <div className="flex min-h-screen">
+            <AppSidebar />
+            <main className="flex-1">
+              {children}
+            </main>
+          </div>
+        </SidebarProvider>
       </body>
     </html>
   );
