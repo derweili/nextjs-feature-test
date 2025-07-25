@@ -1,0 +1,11 @@
+---
+always_attach: true
+---
+
+# Code Structure and Style
+
+- Use TypeScript for all code.
+- Use Tailwind CSS for styling.
+- Organize feature pages under /src/app/feature-name.
+- Keep code modular and easy to test.
+- Follow Next.js and Shadcn best practices for file and component structure. 

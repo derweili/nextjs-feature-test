@@ -1,0 +1,10 @@
+---
+always_attach: true
+---
+
+# Testing Requirements
+
+- Every feature page must have an associated Playwright end-to-end test.
+- Tests should verify both isolated and combined feature pages.
+- Tests should use real data from the public APIs, not mocks or stubs.
+- Playwright should be the primary tool for E2E testing in this project. 

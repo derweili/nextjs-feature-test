@@ -1,0 +1,9 @@
+---
+always_attach: true
+---
+
+# Future-Proofing and Extensibility
+
+- Design the project so new Next.js features and public APIs can be added easily.
+- Make it easy to add new feature test pages and Playwright tests.
+- Keep documentation and rules up to date as the project evolves. 

@@ -1,0 +1,10 @@
+---
+always_attach: true
+---
+
+# Feature Test Pages
+
+- Each Next.js 15 feature should have its own isolated test page under /src/app/feature-name or a similar structure.
+- Where appropriate, features can also be combined on additional pages to demonstrate interoperability.
+- Each feature page should use real data from public APIs (e.g., hp-api, jsonplaceholder, wttr.in) where possible.
+- All feature pages must be covered by Playwright end-to-end tests. 

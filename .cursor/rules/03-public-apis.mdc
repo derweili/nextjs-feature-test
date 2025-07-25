@@ -1,0 +1,12 @@
+---
+always_attach: true
+---
+
+# Public API Usage
+
+- Do not implement custom backend APIs for this project.
+- Use only public APIs for data, such as:
+  - https://hp-api.onrender.com/ (Harry Potter API)
+  - https://jsonplaceholder.typicode.com/ (Fake REST API)
+  - https://wttr.in (Weather API)
+- Prefer using these APIs for all data needs in feature demos and tests. 

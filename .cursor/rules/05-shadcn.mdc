@@ -1,0 +1,9 @@
+---
+always_attach: true
+---
+
+# Shadcn UI Components
+
+- Use Shadcn UI components for all new UI elements where possible.
+- Prefer customizing Shadcn components over building custom UI from scratch.
+- Follow the official Shadcn installation and usage guides for Next.js. 

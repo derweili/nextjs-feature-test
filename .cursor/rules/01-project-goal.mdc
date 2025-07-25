@@ -1,0 +1,12 @@
+---
+always_attach: true
+---
+
+# Project Goal and Context
+
+This project is a Next.js 15 demo and feature testbed, using the App Router, Tailwind CSS, TypeScript, and Shadcn UI components. It is designed to:
+- Demonstrate and test every feature of Next.js 15 in isolation and in combination.
+- Use public APIs (e.g., hp-api, jsonplaceholder, wttr.in) for data, not custom backend APIs.
+- Provide a test page for each feature, with Playwright end-to-end tests for each.
+- Serve as a boilerplate for evaluating hosting provider compatibility with Next.js features. 
+- Dependencies are managed with npm.

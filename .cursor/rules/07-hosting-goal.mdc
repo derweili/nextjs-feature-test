@@ -1,0 +1,9 @@
+---
+always_attach: true
+---
+
+# Hosting Provider Evaluation
+
+- This project will be used to test and compare various hosting providers for Next.js 15 compatibility.
+- All features and tests should be designed to surface compatibility issues with different providers.
+- Avoid provider-specific code or configuration unless testing that provider's features explicitly. 
