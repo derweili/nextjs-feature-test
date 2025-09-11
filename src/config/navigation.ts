@@ -1,5 +1,5 @@
 import type { LinkProps } from "next/link";
-import { Home, Info, BookOpen, Layers, type LucideIcon, LeafyGreen, Database, HardDrive } from "lucide-react";
+import { Home, Info, BookOpen, Layers, type LucideIcon, LeafyGreen, HardDrive } from "lucide-react";
 
 export type NavigationSubItem = {
   label: string;
