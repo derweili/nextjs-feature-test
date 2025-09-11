@@ -1,5 +1,5 @@
 import type { LinkProps } from "next/link";
-import { Home, Info, BookOpen, Layers, type LucideIcon } from "lucide-react";
+import { Home, Info, BookOpen, Layers, type LucideIcon, LeafyGreen, Database, HardDrive } from "lucide-react";
 
 export type NavigationSubItem = {
   label: string;
@@ -43,6 +43,7 @@ export const navigationItems: NavigationItem[] = [
   },
   {
     label: "Large Menu",
+    icon: LeafyGreen,
     children: [
       {
         label: "Navigation Menu",
@@ -74,6 +75,32 @@ export const navigationItems: NavigationItem[] = [
 				href: "/docs/components/card2",
 				description: "A card is a container with a title and a description."
 			},
+    ]
+  },
+  {
+    label: "Caching",
+    icon: HardDrive,
+    children: [
+      {
+        label: "Fetch Caching",
+        href: "/caching/fetch",
+        description: "Test fetch caching with force-cache, no-store, and revalidation."
+      },
+      {
+        label: "Unstable Cache",
+        href: "/caching/unstable-cache",
+        description: "Test unstable_cache with tags and revalidation."
+      },
+      {
+        label: "Revalidate Path",
+        href: "/caching/revalidate-path",
+        description: "Test revalidatePath functionality for path-based cache invalidation."
+      },
+      {
+        label: "Revalidate Tag",
+        href: "/caching/revalidate-tag",
+        description: "Test revalidateTag functionality for tag-based cache invalidation."
+      }
     ]
   }
 ]; 

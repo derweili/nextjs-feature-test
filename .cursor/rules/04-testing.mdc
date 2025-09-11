@@ -8,3 +8,5 @@ always_attach: true
 - Tests should verify both isolated and combined feature pages.
 - Tests should use real data from the public APIs, not mocks or stubs.
 - Playwright should be the primary tool for E2E testing in this project. 
+- All E2E tests should be colocated with the feature page they are testing.
+- All E2E tests should be named `e2e-<feature-page-name>.spec.ts`.
