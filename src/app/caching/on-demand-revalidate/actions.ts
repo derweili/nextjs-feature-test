@@ -4,7 +4,7 @@ import { revalidateTag, revalidatePath } from 'next/cache';
 
 export async function revalidateByTag(tag: string) {
   try {
-    revalidateTag(tag);
+    revalidateTag(tag, 'max');
     return { success: true, message: `Successfully revalidated tag: ${tag}` };
   } catch (error) {
     return { 

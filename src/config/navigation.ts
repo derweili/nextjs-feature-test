@@ -34,7 +34,7 @@ export const navigationItems: NavigationItem[] = [
       {
         label: "Unstable Cache",
         href: "/caching/unstable-cache",
-        description: "Test unstable_cache with tags and revalidation."
+        description: "Test cache with tags and revalidation."
       },
       {
         label: "Static page with time-based revalidation",

@@ -80,7 +80,7 @@ export default async function UnstableCachePage() {
                 Cached Time (with time-based revalidation: 10s)
               </h2>
               <p className="text-sm text-blue-700 dark:text-blue-300 mb-2">
-                This is cached using unstable_cache with automatic revalidation every 30 seconds. Can also be manually revalidated using revalidateTag(&apos;time-revalidate&apos;).
+                This is cached using unstable_cache with automatic revalidation every 10 seconds. Can also be manually revalidated using revalidateTag(&apos;time-revalidate&apos;).
               </p>
               <div className="bg-white dark:bg-gray-700 p-4 rounded border">
                 <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Cached Time</h3>

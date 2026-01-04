@@ -1,4 +1,3 @@
-import { headers } from 'next/headers';
 import { mockApiGet } from '@/lib/mock-api-client';
 
 interface TimeResponse {
