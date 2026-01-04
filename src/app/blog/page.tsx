@@ -1,6 +1,9 @@
 import { ArticleCard } from "@/components/article-card"
 import { RefreshButton } from "@/components/refresh-button"
 
+// Force dynamic rendering since we're using cache: 'no-store'
+export const dynamic = 'force-dynamic'
+
 interface Article {
   id: number
   title: string
