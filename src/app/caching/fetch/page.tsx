@@ -28,7 +28,6 @@ async function getRevalidatedData(): Promise<TimeResponse> {
 }
 
 export default async function FetchCachingPage() {
-  const headersList = await headers();
   const timestamp = Date.now();
   
   const [cachedData, nonCachedData, revalidatedData] = await Promise.all([
@@ -95,7 +94,6 @@ export default async function FetchCachingPage() {
               <div className="space-y-2 text-sm">
                 <p><span className="font-medium">Rendered at:</span> {new Date(timestamp).toISOString()}</p>
                 <p><span className="font-medium">Timestamp:</span> {timestamp}</p>
-                <p><span className="font-medium">User Agent:</span> {headersList.get('user-agent')?.substring(0, 50)}...</p>
               </div>
             </div>
 

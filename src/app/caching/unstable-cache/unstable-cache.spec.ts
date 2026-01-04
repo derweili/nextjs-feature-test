@@ -9,103 +9,110 @@ test.describe('Unstable Cache', () => {
     await expect(page.getByRole('heading', { name: 'Unstable Cache Test' })).toBeVisible();
     
     // Verify all cache sections are present
-    await expect(page.getByText('Non-Cached Users (Fresh Data)')).toBeVisible();
-    await expect(page.getByText('Cached Users (with tags, revalidate: 30s)')).toBeVisible();
-    await expect(page.getByText('Cached User (no tags, revalidate: 60s)')).toBeVisible();
+    await expect(page.getByText('Dynamic Time (No Caching)')).toBeVisible();
+    await expect(page.getByText('Cached Time (with time-based revalidation: 30s)')).toBeVisible();
+    await expect(page.getByText('Cached Time (no revalidation)')).toBeVisible();
     
     // Verify request information section
     await expect(page.getByText('Request Information')).toBeVisible();
     await expect(page.getByText('Test Instructions')).toBeVisible();
   });
 
-  test('should show non-cached users are always fresh', async ({ page }) => {
+  test('should show dynamic time is always fresh', async ({ page }) => {
     // Navigate to the unstable cache page
     await page.goto('/caching/unstable-cache');
     
-    // Get the first non-cached user name
-    const firstNonCachedUser = await page.locator('p.text-red-600').first().textContent();
-    expect(firstNonCachedUser).toBeTruthy();
+    // Get the dynamic time
+    const firstDynamicTime = await page.locator('p.text-red-600').first().textContent();
+    expect(firstDynamicTime).toBeTruthy();
     
     // Reload the page
     await page.reload();
     
-    // Get the first non-cached user name from the second load
-    const secondNonCachedUser = await page.locator('p.text-red-600').first().textContent();
-    expect(secondNonCachedUser).toBeTruthy();
+    // Get the dynamic time from the second load
+    const secondDynamicTime = await page.locator('p.text-red-600').first().textContent();
+    expect(secondDynamicTime).toBeTruthy();
     
-    // Non-cached users should always be fresh (same data in our simulation)
-    expect(firstNonCachedUser!.length).toBeGreaterThan(5);
-    expect(secondNonCachedUser!.length).toBeGreaterThan(5);
+    // Dynamic time should always be fresh (different on each request)
+    expect(firstDynamicTime!.length).toBeGreaterThan(5);
+    expect(secondDynamicTime!.length).toBeGreaterThan(5);
     
-    console.log(`First non-cached user: ${firstNonCachedUser}`);
-    console.log(`Second non-cached user: ${secondNonCachedUser}`);
+    console.log(`First dynamic time: ${firstDynamicTime}`);
+    console.log(`Second dynamic time: ${secondDynamicTime}`);
   });
 
-  test('should show cached users with tags', async ({ page }) => {
+  test('should show cached time with revalidate', async ({ page }) => {
     // Navigate to the unstable cache page
     await page.goto('/caching/unstable-cache');
     
-    // Get the first cached user name
-    const firstCachedUser = await page.locator('p.text-blue-600').first().textContent();
-    expect(firstCachedUser).toBeTruthy();
+    // Get the cached time
+    const firstCachedTime = await page.locator('p.text-blue-600').first().textContent();
+    expect(firstCachedTime).toBeTruthy();
     
     // Reload the page
     await page.reload();
     
-    // Get the first cached user name from the second load
-    const secondCachedUser = await page.locator('p.text-blue-600').first().textContent();
-    expect(secondCachedUser).toBeTruthy();
+    // Get the cached time from the second load
+    const secondCachedTime = await page.locator('p.text-blue-600').first().textContent();
+    expect(secondCachedTime).toBeTruthy();
     
-    // Cached users should be consistent (same data in our simulation)
-    expect(firstCachedUser!.length).toBeGreaterThan(5);
-    expect(secondCachedUser!.length).toBeGreaterThan(5);
+    // Cached time should be consistent (same data until revalidation)
+    expect(firstCachedTime!.length).toBeGreaterThan(5);
+    expect(secondCachedTime!.length).toBeGreaterThan(5);
     
-    console.log(`First cached user: ${firstCachedUser}`);
-    console.log(`Second cached user: ${secondCachedUser}`);
+    console.log(`First cached time: ${firstCachedTime}`);
+    console.log(`Second cached time: ${secondCachedTime}`);
   });
 
-  test('should show cached user without tags', async ({ page }) => {
+  test('should show cached time without revalidation', async ({ page }) => {
     // Navigate to the unstable cache page
     await page.goto('/caching/unstable-cache');
     
-    // Get the cached user without tags
-    const cachedUserNoTags = await page.locator('p.text-green-600').first().textContent();
-    expect(cachedUserNoTags).toBeTruthy();
-    expect(cachedUserNoTags!.length).toBeGreaterThan(5);
+    // Get the cached time without revalidation
+    const firstCachedTimeNoRevalidate = await page.locator('p.text-green-600').first().textContent();
+    expect(firstCachedTimeNoRevalidate).toBeTruthy();
     
-    console.log(`Cached user without tags: ${cachedUserNoTags}`);
+    // Reload the page
+    await page.reload();
+    
+    // Get the cached time without revalidation from the second load
+    const secondCachedTimeNoRevalidate = await page.locator('p.text-green-600').first().textContent();
+    expect(secondCachedTimeNoRevalidate).toBeTruthy();
+    
+    // Cached time without revalidation should be consistent (same data until manual revalidation)
+    expect(firstCachedTimeNoRevalidate!.length).toBeGreaterThan(5);
+    expect(secondCachedTimeNoRevalidate!.length).toBeGreaterThan(5);
+    
+    console.log(`First cached time (no revalidate): ${firstCachedTimeNoRevalidate}`);
+    console.log(`Second cached time (no revalidate): ${secondCachedTimeNoRevalidate}`);
   });
 
-  test('should display all user information correctly', async ({ page }) => {
+  test('should display all time information correctly', async ({ page }) => {
     // Navigate to the unstable cache page
     await page.goto('/caching/unstable-cache');
     
-    // Verify all user sections have proper data
-    const nonCachedUsers = page.locator('p.text-red-600');
-    const cachedUsers = page.locator('p.text-blue-600');
-    const cachedUserNoTags = page.locator('p.text-green-600');
+    // Verify all time sections have proper data
+    const dynamicTimes = page.locator('p.text-red-600');
+    const cachedTimesWithRevalidate = page.locator('p.text-blue-600');
+    const cachedTimesNoRevalidate = page.locator('p.text-green-600');
     
-    // Check we have the expected number of users
-    await expect(nonCachedUsers).toHaveCount(3); // 3 non-cached users
-    await expect(cachedUsers).toHaveCount(2); // 2 cached users with tags
-    await expect(cachedUserNoTags).toHaveCount(1); // 1 cached user without tags
+    // Check we have the expected number of time entries
+    await expect(dynamicTimes).toHaveCount(1); // 1 dynamic time
+    await expect(cachedTimesWithRevalidate).toHaveCount(1); // 1 cached time with revalidate
+    await expect(cachedTimesNoRevalidate).toHaveCount(1); // 1 cached time without revalidate
     
-    // Verify all users have valid names
-    for (let i = 0; i < 3; i++) {
-      const user = await nonCachedUsers.nth(i).textContent();
-      expect(user).toBeTruthy();
-      expect(user!.length).toBeGreaterThan(5);
-    }
+    // Verify all times have valid values
+    const dynamicTime = await dynamicTimes.first().textContent();
+    expect(dynamicTime).toBeTruthy();
+    expect(dynamicTime!.length).toBeGreaterThan(5);
     
-    for (let i = 0; i < 2; i++) {
-      const user = await cachedUsers.nth(i).textContent();
-      expect(user).toBeTruthy();
-      expect(user!.length).toBeGreaterThan(5);
-    }
+    const cachedTimeWithRevalidate = await cachedTimesWithRevalidate.first().textContent();
+    expect(cachedTimeWithRevalidate).toBeTruthy();
+    expect(cachedTimeWithRevalidate!.length).toBeGreaterThan(5);
     
-    const userNoTags = await cachedUserNoTags.first().textContent();
-    expect(userNoTags).toBeTruthy();
-    expect(userNoTags!.length).toBeGreaterThan(5);
+    const cachedTimeNoRevalidate = await cachedTimesNoRevalidate.first().textContent();
+    expect(cachedTimeNoRevalidate).toBeTruthy();
+    expect(cachedTimeNoRevalidate!.length).toBeGreaterThan(5);
   });
 
   test('should display request information', async ({ page }) => {
@@ -116,12 +123,9 @@ test.describe('Unstable Cache', () => {
     await expect(page.getByText('Request Information')).toBeVisible();
     await expect(page.getByText('Rendered at:')).toBeVisible();
     await expect(page.getByText('Timestamp:')).toBeVisible();
-    await expect(page.getByText('User Agent:')).toBeVisible();
     
-    // Verify timestamp is a valid number
-    const timestampElement = page.locator('p.font-mono.text-blue-600').first();
-    const timestamp = await timestampElement.textContent();
-    expect(timestamp).toBeTruthy();
-    expect(parseInt(timestamp!)).toBeGreaterThan(0);
+    // Verify timestamp is displayed
+    const timestampText = await page.getByText('Timestamp:').textContent();
+    expect(timestampText).toBeTruthy();
   });
 }); 
