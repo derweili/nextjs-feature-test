@@ -43,7 +43,7 @@ export default async function BlogPage() {
               Discover random articles from our collection
             </p>
           </div>
-          <RefreshButton />
+          <RefreshButton label="Refresh Articles" />
         </div>
       </div>
 

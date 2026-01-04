@@ -102,6 +102,11 @@ export const navigationItems: NavigationItem[] = [
         label: "Revalidate Tag",
         href: "/caching/revalidate-tag",
         description: "Test revalidateTag functionality for tag-based cache invalidation."
+      },
+      {
+        label: "Static page with time-based revalidation",
+        href: "/caching/static-revalidate",
+        description: "Test static page caching with time-based revalidation (10 seconds)."
       }
     ]
   }
