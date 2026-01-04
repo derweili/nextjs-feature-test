@@ -118,7 +118,6 @@ export function EnvironmentSwitcher({
                   <span className="font-medium">{env.name}</span>
                   <span className="text-muted-foreground text-xs">{env.description}</span>
                 </div>
-                <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>
