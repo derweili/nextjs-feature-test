@@ -12,7 +12,7 @@ async function getRandomArticles(): Promise<Article[]> {
   try {
     // Fetch all posts first
     const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-      next: { revalidate: 300 } // Cache for 5 minutes
+      cache: 'no-store'
     })
     
     if (!response.ok) {
