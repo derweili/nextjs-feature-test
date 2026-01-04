@@ -1,5 +1,5 @@
 import type { LinkProps } from "next/link";
-import { Home, Info, BookOpen, Layers, type LucideIcon, LeafyGreen, HardDrive } from "lucide-react";
+import { Home, Info, BookOpen, Layers, type LucideIcon, LeafyGreen, HardDrive, Zap } from "lucide-react";
 
 export type NavigationSubItem = {
   label: string;
@@ -20,6 +20,7 @@ export const navigationItems: NavigationItem[] = [
   { label: "Home", href: "/", icon: Home },
   { label: "About", href: "/about", icon: Info },
   { label: "Blog", href: "/blog", icon: BookOpen },
+  { label: "Server Action", href: "/server-action", icon: Zap },
   {
     label: "Components",
     icon: Layers,
