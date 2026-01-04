@@ -50,6 +50,11 @@ export const navigationItems: NavigationItem[] = [
         label: "Static page with time-based revalidation",
         href: "/caching/static-revalidate",
         description: "Test static page caching with time-based revalidation (10 seconds)."
+      },
+      {
+        label: "On-demand revalidation",
+        href: "/caching/on-demand-revalidate",
+        description: "Test static page caching with on-demand revalidation via tag or path."
       }
     ]
   }
