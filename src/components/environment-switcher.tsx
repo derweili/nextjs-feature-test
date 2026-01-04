@@ -41,8 +41,6 @@ export function EnvironmentSwitcher({
     if (!activeEnvironment || activeEnvironment.name === env.name) {
       return
     }
-
-    setActiveEnvironment(env)
     
     // Navigate to the environment URL, preserving the current path
     if (env.url && typeof window !== "undefined") {
