@@ -4,6 +4,7 @@ import {
   Cloud,
   Server,
   Home,
+  CloudUpload
 } from "lucide-react";
 
 export type Environment = {
@@ -31,6 +32,12 @@ export const environments: Environment[] = [
     logo: Server,
     description: "Production on Coolify (Hetzner)",
     url: "http://wswco0gkgc4g8g80cswsogkc.91.98.234.230.sslip.io",
+  },
+  {
+    name: "AWS Amplify",
+    logo: CloudUpload,
+    description: "Production on AWS Amplify",
+    url: "https://main.dlqw6j23tenw3.amplifyapp.com/",
   },
   {
     name: "Localhost",
