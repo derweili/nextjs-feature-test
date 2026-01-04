@@ -18,7 +18,7 @@ export const environments: Environment[] = [
     name: "Vercel",
     logo: Triangle,
     description: "Production on Vercel",
-    url: "https://your-app.vercel.app",
+    url: "https://nextjs-feature-test.vercel.app",
   },
   {
     name: "Sevella",

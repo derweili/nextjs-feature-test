@@ -17,6 +17,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { Skeleton } from "@/components/ui/skeleton"
 import { detectEnvironment, type Environment } from "@/config/environments"
 
 export function TeamSwitcher({
@@ -25,20 +26,19 @@ export function TeamSwitcher({
   environments: Environment[]
 }) {
   const { isMobile } = useSidebar()
-  const [activeEnvironment, setActiveEnvironment] = React.useState<Environment>(() => detectEnvironment())
+  const [activeEnvironment, setActiveEnvironment] = React.useState<Environment | null>(null)
+  const [isLoading, setIsLoading] = React.useState(true)
 
-  // Update environment when component mounts (client-side only)
+  // Detect environment when component mounts (client-side only)
   React.useEffect(() => {
-    setActiveEnvironment(detectEnvironment())
+    const detected = detectEnvironment()
+    setActiveEnvironment(detected)
+    setIsLoading(false)
   }, [])
-
-  if (!activeEnvironment) {
-    return null
-  }
 
   const handleEnvironmentChange = (env: Environment) => {
     // Don't navigate if already on this environment
-    if (activeEnvironment.name === env.name) {
+    if (!activeEnvironment || activeEnvironment.name === env.name) {
       return
     }
 
@@ -50,11 +50,33 @@ export function TeamSwitcher({
         const currentPath = window.location.pathname + window.location.search
         const targetUrl = new URL(currentPath, env.url)
         window.location.href = targetUrl.toString()
-      } catch (error) {
+      } catch {
         // Fallback: just use the environment URL
         window.location.href = env.url
       }
     }
+  }
+
+  // Show skeleton while loading
+  if (isLoading || !activeEnvironment) {
+    return (
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton
+            size="lg"
+            disabled
+            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+          >
+            <Skeleton className="aspect-square size-8 rounded-lg" />
+            <div className="grid flex-1 text-left text-sm leading-tight gap-1">
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-3 w-32" />
+            </div>
+            <ChevronsUpDown className="ml-auto opacity-50" />
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
+    )
   }
 
   return (
