@@ -37,16 +37,6 @@ export const navigationItems: NavigationItem[] = [
         description: "Test unstable_cache with tags and revalidation."
       },
       {
-        label: "Revalidate Path",
-        href: "/caching/revalidate-path",
-        description: "Test revalidatePath functionality for path-based cache invalidation."
-      },
-      {
-        label: "Revalidate Tag",
-        href: "/caching/revalidate-tag",
-        description: "Test revalidateTag functionality for tag-based cache invalidation."
-      },
-      {
         label: "Static page with time-based revalidation",
         href: "/caching/static-revalidate",
         description: "Test static page caching with time-based revalidation (10 seconds)."
