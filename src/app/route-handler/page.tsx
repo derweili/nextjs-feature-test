@@ -98,12 +98,6 @@ export default function RouteHandlerPage() {
               </Button>
             </div>
 
-            {(isLoading || isValidating) && (
-              <div className="text-sm text-muted-foreground">
-                Loading data...
-              </div>
-            )}
-
             {error && (
               <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md">
                 Error: {error.message}
@@ -129,7 +123,7 @@ export default function RouteHandlerPage() {
                     </span>
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    <span className="font-medium">Timestamp:</span>{' '}
+                    <span className="font-medium">Timestamp returned by the server:</span>{' '}
                     <span className="text-foreground font-mono">
                       {data.timestamp}
                     </span>
@@ -192,7 +186,7 @@ export default function RouteHandlerPage() {
                     <span className="text-foreground">{submitResult.text}</span>
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    <span className="font-medium">Timestamp:</span>{' '}
+                    <span className="font-medium">Timestamp returned by the server:</span>{' '}
                     <span className="text-foreground font-mono">
                       {submitResult.timestamp}
                     </span>

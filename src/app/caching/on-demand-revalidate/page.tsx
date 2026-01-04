@@ -30,6 +30,9 @@ export default async function OnDemandRevalidatePage() {
             </h1>
             <RefreshButton />
           </div>
+          <p className="text-gray-600 dark:text-gray-300 mb-6">
+            Demonstrates on-demand revalidation using tags and paths. The page is statically generated and can be manually revalidated when data changes, providing more control over cache invalidation compared to time-based revalidation.
+          </p>
           
           <div className="space-y-6">
             <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">

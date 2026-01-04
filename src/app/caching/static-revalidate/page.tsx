@@ -28,6 +28,9 @@ export default async function StaticRevalidatePage() {
             </h1>
             <RefreshButton />
           </div>
+          <p className="text-gray-600 dark:text-gray-300 mb-6">
+            Shows how static pages are cached and automatically revalidated at set intervals using the <code className="bg-gray-100 dark:bg-gray-700 px-1 rounded">revalidate</code> export. The page is statically generated and revalidated every 10 seconds in the background.
+          </p>
           
           <div className="space-y-6">
             <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">

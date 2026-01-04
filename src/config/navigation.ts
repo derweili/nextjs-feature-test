@@ -18,7 +18,6 @@ export type NavigationItem = {
 
 export const navigationItems: NavigationItem[] = [
   { label: "Home", href: "/", icon: Home },
-  { label: "About", href: "/about", icon: Info },
   { label: "Blog", href: "/blog", icon: BookOpen },
   { label: "Server Action", href: "/server-action", icon: Zap },
   { label: "Route Handler", href: "/route-handler", icon: Route },
