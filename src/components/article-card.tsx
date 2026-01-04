@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ExternalLink, User, Calendar } from "lucide-react"
+import { User, Calendar, ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 interface Article {
   id: number
@@ -32,15 +33,13 @@ export function ArticleCard({ article }: ArticleCardProps) {
       </CardContent>
       <CardFooter>
         <Button variant="outline" className="w-full" asChild>
-          <a 
-            href={`https://jsonplaceholder.typicode.com/posts/${article.id}`}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link 
+            href={`/blog/${article.id}`}
             className="flex items-center gap-2"
           >
             Read More
-            <ExternalLink className="h-4 w-4" />
-          </a>
+            <ArrowRight className="h-4 w-4" />
+          </Link>
         </Button>
       </CardFooter>
     </Card>
