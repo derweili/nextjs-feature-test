@@ -1,21 +1,17 @@
 "use client"
 
 import * as React from "react"
+import { usePathname } from "next/navigation"
 import {
   AudioWaveform,
-  BookOpen,
-  Bot,
   Command,
   Frame,
   GalleryVerticalEnd,
   Map,
   PieChart,
-  Settings2,
-  SquareTerminal,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
 import { TeamSwitcher } from "@/components/team-switcher"
 import {
@@ -71,16 +67,28 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const pathname = usePathname()
+
   // Map navigationItems to NavMain's expected structure
-  const navMainItems = navigationItems.map((item) => ({
-    title: item.label,
-    url: item.href || "#",
-    icon: item.icon,
-    items: item.children?.map((sub) => ({
-      title: sub.label,
-      url: sub.href,
-    })),
-  }));
+  const navMainItems = navigationItems.map((item) => {
+    // Check if any child matches the current pathname
+    const hasActiveChild = item.children?.some((child) => child.href === pathname) ?? false
+    
+    // Check if the parent item itself is active (for items without children)
+    const isParentActive = item.href === pathname
+
+    return {
+      title: item.label,
+      url: item.href || "#",
+      icon: item.icon,
+      isActive: hasActiveChild || isParentActive,
+      items: item.children?.map((sub) => ({
+        title: sub.label,
+        url: sub.href,
+        isActive: sub.href === pathname,
+      })),
+    }
+  });
 
   return (
     <Sidebar collapsible="icon" {...props}>

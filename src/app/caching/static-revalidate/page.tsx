@@ -100,6 +100,7 @@ export default async function StaticRevalidatePage() {
                 <li>Wait more than 10 seconds and reload - the time should update</li>
                 <li>Use the refresh button to manually trigger a revalidation</li>
                 <li>Compare the API timestamp with the page render timestamp to see when data was fetched</li>
+								<li>Check the network tab to verify the page request has a <code className='bg-yellow-100 dark:bg-yellow-800 px-1 rounded'>cache-control</code> set to <code className='bg-yellow-100 dark:bg-yellow-800 px-1 rounded'>max-age</code> of 10 seconds</li>
                 <li>Check the Network tab to see when background revalidation occurs</li>
               </ul>
             </div>
