@@ -8,7 +8,9 @@ interface TimeResponse {
 
 // Fetch time from mock API (non-cached)
 async function getTimeData(): Promise<TimeResponse> {
-  return mockApiGet<TimeResponse>('/api/time');
+  return mockApiGet<TimeResponse>('/api/time', {
+    cache: 'no-store'
+  });
 }
 
 // Cached version with time-based revalidation
