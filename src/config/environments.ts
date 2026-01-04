@@ -34,6 +34,12 @@ export const environments: Environment[] = [
     url: "http://wswco0gkgc4g8g80cswsogkc.91.98.234.230.sslip.io",
   },
   {
+    name: "Cloudflare Tunnel with Coolify",
+    logo: Cloud,
+    description: "Production on Cloudflare Tunnel with Coolify on Hetzner",
+    url: "https://next-coolify-cloudflare-test.derweili.de",
+  },
+  {
     name: "AWS Amplify",
     logo: CloudUpload,
     description: "Production on AWS Amplify",
