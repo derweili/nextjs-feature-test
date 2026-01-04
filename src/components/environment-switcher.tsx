@@ -20,7 +20,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton"
 import { detectEnvironment, type Environment } from "@/config/environments"
 
-export function TeamSwitcher({
+export function EnvironmentSwitcher({
   environments,
 }: {
   environments: Environment[]
@@ -129,3 +129,4 @@ export function TeamSwitcher({
     </SidebarMenu>
   )
 }
+

@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation"
 
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
+import { EnvironmentSwitcher } from "@/components/environment-switcher"
 import {
   Sidebar,
   SidebarContent,
@@ -52,7 +52,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher environments={environments} />
+        <EnvironmentSwitcher environments={environments} />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={navMainItems} />
