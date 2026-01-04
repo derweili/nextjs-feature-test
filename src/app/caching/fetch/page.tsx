@@ -1,27 +1,30 @@
 import { headers } from 'next/headers';
+import { mockApiGet } from '@/lib/mock-api-client';
 
-async function getCachedData() {
+interface TimeResponse {
+  time: string;
+  timestamp: number;
+}
+
+async function getCachedData(): Promise<TimeResponse> {
   // This will be cached by default in Next.js
-  const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
+  return mockApiGet<TimeResponse>('/api/time', {
     cache: 'force-cache'
   });
-  return response.json();
 }
 
-async function getNonCachedData() {
+async function getNonCachedData(): Promise<TimeResponse> {
   // This will not be cached
-  const response = await fetch('https://jsonplaceholder.typicode.com/posts/2', {
+  return mockApiGet<TimeResponse>('/api/time', {
     cache: 'no-store'
   });
-  return response.json();
 }
 
-async function getRevalidatedData() {
+async function getRevalidatedData(): Promise<TimeResponse> {
   // This will be revalidated every 10 seconds
-  const response = await fetch('https://jsonplaceholder.typicode.com/posts/3', {
+  return mockApiGet<TimeResponse>('/api/time', {
     next: { revalidate: 10 }
   });
-  return response.json();
 }
 
 export default async function FetchCachingPage() {
@@ -51,9 +54,9 @@ export default async function FetchCachingPage() {
                 This data is cached and will be the same across requests until the page is rebuilt.
               </p>
               <div className="bg-white dark:bg-gray-700 p-4 rounded border">
-                <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Post Title</h3>
-                <p className="text-lg text-blue-600 dark:text-blue-400">{cachedData.title}</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{cachedData.body}</p>
+                <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Current Time</h3>
+                <p className="text-lg text-blue-600 dark:text-blue-400">{cachedData.time}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Timestamp: {cachedData.timestamp}</p>
               </div>
             </div>
 
@@ -65,23 +68,23 @@ export default async function FetchCachingPage() {
                 This data is fetched fresh on every request.
               </p>
               <div className="bg-white dark:bg-gray-700 p-4 rounded border">
-                <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Post Title</h3>
-                <p className="text-lg text-red-600 dark:text-red-400">{nonCachedData.title}</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{nonCachedData.body}</p>
+                <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Current Time</h3>
+                <p className="text-lg text-red-600 dark:text-red-400">{nonCachedData.time}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Timestamp: {nonCachedData.timestamp}</p>
               </div>
             </div>
 
             <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg">
               <h2 className="text-xl font-semibold text-yellow-900 dark:text-yellow-100 mb-3">
-                Revalidated Fetch (revalidate: 10s)
+                Time based revalidated Fetch (revalidate: 10s)
               </h2>
               <p className="text-sm text-yellow-700 dark:text-yellow-300 mb-2">
                 This data is cached but revalidated every 10 seconds.
               </p>
               <div className="bg-white dark:bg-gray-700 p-4 rounded border">
-                <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Post Title</h3>
-                <p className="text-lg text-yellow-600 dark:text-yellow-400">{revalidatedData.title}</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">{revalidatedData.body}</p>
+                <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Current Time</h3>
+                <p className="text-lg text-yellow-600 dark:text-yellow-400">{revalidatedData.time}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Timestamp: {revalidatedData.timestamp}</p>
               </div>
             </div>
 
@@ -102,10 +105,11 @@ export default async function FetchCachingPage() {
               </h2>
               <ul className="list-disc list-inside space-y-1 text-sm text-purple-800 dark:text-purple-200">
                 <li>Reload this page multiple times to see the differences</li>
-                <li>The cached data should remain the same across reloads</li>
-                <li>The non-cached data may change (depending on the API)</li>
-                <li>The revalidated data will change every 10 seconds</li>
+                <li>The cached data should remain the same across reloads (same timestamp)</li>
+                <li>The non-cached data will change on every request (new timestamp each time)</li>
+                <li>The revalidated data will change every 10 seconds (timestamp updates after revalidation period)</li>
                 <li>Check the timestamp to see when the page was rendered</li>
+                <li>Compare the timestamps to see which data is cached vs fresh</li>
               </ul>
             </div>
           </div>
