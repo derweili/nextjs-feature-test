@@ -50,7 +50,7 @@ export default function RouteHandlerPage() {
   } | null>(null);
 
   // Fetch data using useSWR (GET request)
-  const { data, error, isLoading, mutate } = useSWR('/api/data', fetcher, {
+  const { data, error, isLoading, isValidating, mutate } = useSWR('/api/data', fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   });
@@ -91,14 +91,14 @@ export default function RouteHandlerPage() {
             <div className="flex gap-2">
               <Button
                 onClick={() => mutate()}
-                disabled={isLoading}
+                disabled={isLoading || isValidating}
                 variant="outline"
               >
-                {isLoading ? 'Loading...' : 'Refresh Data'}
+                {isLoading || isValidating ? 'Loading...' : 'Refresh Data'}
               </Button>
             </div>
 
-            {isLoading && (
+            {(isLoading || isValidating) && (
               <div className="text-sm text-muted-foreground">
                 Loading data...
               </div>
