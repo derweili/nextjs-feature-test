@@ -79,6 +79,10 @@ export function detectEnvironment(): Environment {
   if (hostname.includes("sevella")) {
     return environments.find((e) => e.name === "Sevella") || environments[0];
   }
+
+  if (hostname.includes("cloudflare")) {
+    return environments.find((e) => e.name === "Cloudflare Tunnel with Coolify") || environments[0];
+  }
   
   if (hostname.includes("coolify") || hostname.includes("hetzner")) {
     return environments.find((e) => e.name === "Coolify Hetzner") || environments[0];
