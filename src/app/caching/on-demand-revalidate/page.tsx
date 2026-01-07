@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { mockApiGet } from '@/lib/mock-api-client';
 import { RefreshButton } from '@/components/refresh-button';
 import { OnDemandRevalidateClient } from './client';
@@ -12,14 +13,41 @@ interface TimeResponse {
 
 async function getTimeData(): Promise<TimeResponse> {
   return mockApiGet<TimeResponse>('/api/time', {
-    next: { tags: ['time-data'] }
+    next: { tags: ['time-data'] },
   });
 }
 
-export default async function OnDemandRevalidatePage() {
-  const timestamp = Date.now();
+async function TimeDataContent() {
+  "use cache"
+  // Access data first, then get timestamp (required for Cache Components)
   const timeData = await getTimeData();
 
+  return (
+    <>
+      <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+        <h2 className="text-xl font-semibold text-blue-900 dark:text-blue-100 mb-3">
+          Time from API
+        </h2>
+        <p className="text-sm text-blue-700 dark:text-blue-300 mb-2">
+          This page is statically generated and can be revalidated on-demand using tags or paths.
+          The data below shows the time fetched from the mock API with the tag &apos;time-data&apos;.
+        </p>
+        <div className="bg-white dark:bg-gray-700 p-4 rounded border">
+          <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Current Time</h3>
+          <p className="text-lg text-blue-600 dark:text-blue-400">{timeData.time}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+            API Timestamp: {timeData.timestamp}
+          </p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            API Time (ISO): {new Date(timeData.timestamp).toISOString()}
+          </p>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default function OnDemandRevalidatePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 p-8">
       <div className="max-w-4xl mx-auto">
@@ -35,43 +63,8 @@ export default async function OnDemandRevalidatePage() {
           </p>
           
           <div className="space-y-6">
-            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
-              <h2 className="text-xl font-semibold text-blue-900 dark:text-blue-100 mb-3">
-                Time from API
-              </h2>
-              <p className="text-sm text-blue-700 dark:text-blue-300 mb-2">
-                This page is statically generated and can be revalidated on-demand using tags or paths.
-                The data below shows the time fetched from the mock API with the tag &apos;time-data&apos;.
-              </p>
-              <div className="bg-white dark:bg-gray-700 p-4 rounded border">
-                <h3 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Current Time</h3>
-                <p className="text-lg text-blue-600 dark:text-blue-400">{timeData.time}</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-                  API Timestamp: {timeData.timestamp}
-                </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">
-                  API Time (ISO): {new Date(timeData.timestamp).toISOString()}
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-gray-50 dark:bg-gray-900/20 p-4 rounded-lg">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-                Page Information
-              </h2>
-              <div className="space-y-2 text-sm">
-                <p>
-                  <span className="font-medium">Page rendered at:</span>{' '}
-                  {new Date(timestamp).toISOString()}
-                </p>
-                <p>
-                  <span className="font-medium">Render timestamp:</span> {timestamp}
-                </p>
-                <p>
-                  <span className="font-medium">Revalidation type:</span> On-demand (tag or path)
-                </p>
-              </div>
-            </div>
+            
+            <TimeDataContent />
 
             <OnDemandRevalidateClient />
 
@@ -120,4 +113,3 @@ export default async function OnDemandRevalidatePage() {
     </div>
   );
 }
-
