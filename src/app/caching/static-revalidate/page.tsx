@@ -83,13 +83,8 @@ export default function StaticRevalidatePage() {
           </p>
           
           <div className="space-y-6">
-            <Suspense fallback={
-              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
-                <p className="text-sm text-blue-700 dark:text-blue-300">Loading time data...</p>
-              </div>
-            }>
-              <TimeDataContent />
-            </Suspense>
+            
+            <TimeDataContent />
 
             <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
               <h2 className="text-xl font-semibold text-purple-900 dark:text-purple-100 mb-3">
