@@ -1,8 +1,11 @@
 import type { NextConfig } from "next";
 
 const REDIS_URL = process.env.REDIS_URL;
+const IS_DOCKER_BUILD = process.env.DOCKER_BUILD === 'true';
 
 const nextConfig: NextConfig = {
+  // Enable standalone output for Docker deployment
+  output: IS_DOCKER_BUILD ? 'standalone' : undefined,
   cacheHandlers: REDIS_URL ? {
     default: require.resolve('./cache-handlers/default-handler.mjs'),
     remote: require.resolve('./cache-handlers/default-handler.mjs'),
